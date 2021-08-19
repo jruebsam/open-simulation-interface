@@ -112,28 +112,52 @@ message EnvironmentalConditions
 
     message PrecipitationClassification
     {
-        optional Rain rain = 1;
-        optional Snow snow = 2;
-        optional Hail hail = 3;
+        optional double intensity = 1;
+        optional double volume = 2;
+        optional EnvironmentalConditions.Precipitation classification = 3;
 
+        // V1 custom message
+
+        optional Rain rain = 4;
+        optional Snow snow = 5;
+        optional Hail hail = 6;
 
         message Rain {
-            optional double intensity = 1;
-            optional double volume = 2;
-            optional EnvironmentalConditions.Precipitation classification = 3;
+            optional double relative_amount = 1;
+            optional RainDistribution distribution = 2;
+
+            message RainDistribution  {
+                optional double drop_size = 1;
+
+                enum RainDistributionType {
+                    MARSHALL_PALLMER = 1;
+                    ULBRICH = 2;
+                }
+            }
         }
 
         message Snow {
-            optional double intensity = 1;
-            optional double volume = 2;
-            optional EnvironmentalConditions.Precipitation classification = 3;
+            optional double relative_amount = 1;
         }
 
         message Hail {
-            optional double intensity = 1;
-            optional double volume = 2;
-            optional EnvironmentalConditions.Precipitation classification = 3;
+            optional double relative_amount = 1;
         }
+
+        // V2 yes / no
+
+        optional bool contains_rain = 7;
+        optional bool contains_snow = 8;
+        optional bool contains_hail = 9;
+        optional bool contains_graupel = 10;
+
+        // V3 in percentage
+
+        optional double relative_amount_rain = 11;
+        optional double relative_amount_snow = 12;
+        optional double relative_amount_hail = 13;
+        optional double relative_amount_graupel = 14;
+
     }
 
 
