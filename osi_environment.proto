@@ -107,6 +107,36 @@ message EnvironmentalConditions
     // \par Reference:
     // [1] Paulat, M., Frei, C., Hagen, M. & Wernli, H. (2008). A gridded dataset of hourly precipitation in Germany: Its construction, climatology and application. <em>Meteorologische Zeitschrift</em>. Vol. 17, No. 6. pp. 719-732. Berlin, Stuttgart, Germany. https://doi.org/10.1127/0941-2948/2008/0332
     //
+
+    optional PrecipitationClassification precipitation_classification = 10;
+
+    message PrecipitationClassification
+    {
+        optional Rain rain = 1;
+        optional Snow snow = 2;
+        optional Hail hail = 3;
+
+
+        message Rain {
+            optional double intensity = 1;
+            optional double volume = 2;
+            optional EnvironmentalConditions.Precipitation classification = 3;
+        }
+
+        message Snow {
+            optional double intensity = 1;
+            optional double volume = 2;
+            optional EnvironmentalConditions.Precipitation classification = 3;
+        }
+
+        message Hail {
+            optional double intensity = 1;
+            optional double volume = 2;
+            optional EnvironmentalConditions.Precipitation classification = 3;
+        }
+    }
+
+
     enum Precipitation
     {
         // Intensity of precipitation is unknown (must not be used in ground
